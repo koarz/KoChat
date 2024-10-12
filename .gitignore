@@ -5,5 +5,6 @@ build/
 # MacOS Cache
 .DS_Store
 
-.vscode
 .cache
+
+compile_commands.json
