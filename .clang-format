@@ -1,0 +1,11 @@
+
+BasedOnStyle: LLVM        # 基于LLVM风格
+IndentWidth: 2            # 设置缩进为2个空格
+TabWidth: 2               # Tab宽度为2个空格
+BreakBeforeBraces: Attach  # 将开括号放在同一行
+AllowShortBlocksOnASingleLine: true  # 允许短块在同一行
+AllowShortCaseLabelsOnASingleLine: true  # 允许短case标签在同一行
+AllowShortFunctionsOnASingleLine: Inline  # 允许短函数在同一行
+AllowShortLambdasOnASingleLine: true  # 允许短lambda在同一行
+ColumnLimit: 100           # 每行字符限制为80
+KeepEmptyLinesAtTheStartOfBlocks: true  # 保留空行
