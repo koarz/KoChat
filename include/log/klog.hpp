@@ -21,7 +21,7 @@ class LOG {
   static constexpr uint64_t THREADID = 1 << 2;  // Output thread id
 
 public:
-  enum class LEVEL { OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE };
+  enum class LEVEL { OFF, FATAL, ERROR, WARN, INFO, DEBUG };
   LOG() = default;
   ~LOG() {
     if (fs.is_open())
@@ -56,8 +56,7 @@ public:
       info << "Thread : " << std::this_thread::get_id() << ' ';
     }
     if (flags & TIME) {
-      const auto now = std::chrono::system_clock::to_time_t(
-          std::chrono::system_clock::now());
+      const auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
       struct tm cutTm = {0};
       info << std::put_time(localtime_r(&now, &cutTm), "%F %T ");
     }
@@ -67,24 +66,11 @@ public:
       data = std::format("\033[36m{} [OFF] {}", info.str(), sv);
       close = true;
       break;
-    case LEVEL::FATAL:
-      data = std::format("\033[30m{} [FATAL] {}", info.str(), sv);
-      break;
-    case LEVEL::ERROR:
-      data = std::format("\033[31m{} [ERROR] {}", info.str(), sv);
-      break;
-    case LEVEL::WARN:
-      data = std::format("\033[33m{} [WARN] {}", info.str(), sv);
-      break;
-    case LEVEL::INFO:
-      data = std::format("\033[37m{} [INFO] {}", info.str(), sv);
-      break;
-    case LEVEL::DEBUG:
-      data = std::format("\033[35m{} [DEBUG] {}", info.str(), sv);
-      break;
-    case LEVEL::TRACE:
-      data = std::format("\033[34m{} [TRACE] {}", info.str(), sv);
-      break;
+    case LEVEL::FATAL: data = std::format("\033[30m{} [FATAL] {}", info.str(), sv); break;
+    case LEVEL::ERROR: data = std::format("\033[31m{} [ERROR] {}", info.str(), sv); break;
+    case LEVEL::WARN: data = std::format("\033[33m{} [WARN] {}", info.str(), sv); break;
+    case LEVEL::INFO: data = std::format("\033[37m{} [INFO] {}", info.str(), sv); break;
+    case LEVEL::DEBUG: data = std::format("\033[35m{} [DEBUG] {}", info.str(), sv); break;
     }
     std::unique_lock<std::mutex> lock(mut);
     if (flags & REDIRFILE) {
